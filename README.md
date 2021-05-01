@@ -16,3 +16,7 @@ The framework additionally offers
 - A simple simulation environment management system
 - An `InstanceHandler` to provide functions to systematically generate Problem instances
 - A plotter for visualizing the solutions
+
+## Usage
+
+Make sure the `EXPERIMENTS_HOME` environment variable is set and points to a directory that will then contain the simulation results and plots
