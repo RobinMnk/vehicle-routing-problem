@@ -1,1 +1,18 @@
-# vehicle-routing-problem
+# Vehicle Routing Problem
+
+This repository contains a framework for algorithms to solve the Vehicle Routing Problem (VRP) approximately via Local Search Heuristics. It is a wrapper for the following four algorithms implemented by [emarkou](https://github.com/emarkou) in [this repository](https://github.com/emarkou/Large-Scale-Optimization-Vehicle-Routing-Problem):
+
+- Nearest Neighbor
+- Local Search with intra- relocation moves
+- Local Search with intra- and inter- relocation moves
+- Tabu Search
+
+The framework runs all algorithms on the given problem instance(s) and returns the best solution.
+
+## Features
+
+The framework offers
+
+- A simple simulation environment management system
+- An `InstanceHandler` to provide functions to systematically generate Problem instances
+- A plotter for visualizing the solutions
