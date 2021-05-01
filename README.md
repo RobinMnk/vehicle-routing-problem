@@ -11,7 +11,7 @@ The framework runs all algorithms on the given problem instance(s) and returns t
 
 ## Features
 
-The framework offers
+The framework additionally offers
 
 - A simple simulation environment management system
 - An `InstanceHandler` to provide functions to systematically generate Problem instances
