@@ -56,20 +56,27 @@ def createPlot(inputfile, solutionfile, problemID):
 
     plt.title("" + str(K) + (' Vehicles' if K > 1 else ' Vehicle') + " - " + str(n) + " Locations - Cost: " + str(cost))
     plotname = "plot_"+problemID+".png"
-    plt.savefig("plots/" + plotname)
+    plt.savefig(makePath("plots/" + plotname))
     plt.close()
     print("Plot '{}' created!".format(plotname))
 
 overwritePlots = False
 def handleInputFile(inputfile):
     problemID = re.search('input_(.*).txt', inputfile).group(1)
-    solutionfile = "output/solution_{}.txt".format(problemID)
-    plot = "plots/plot_{}.png".format(problemID)
+    solutionfile = makePath("output/solution_{}.txt").format(problemID)
+    plot = makePath("plots/plot_{}.png").format(problemID)
     if os.path.isfile(solutionfile) and (overwritePlots or not os.path.isfile(plot)):
-        createPlot("input/" + inputfile, solutionfile, problemID)
+        createPlot(makePath("input/" + inputfile), solutionfile, problemID)
+
+def makePath(path):
+    return EXP_HOME + path
 
 if __name__ == "__main__":
-    for root, dirs, files in os.walk("input"):
+    EXP_HOME = os.environ.get("EXPERIMENTS_HOME", None)
+    if EXP_HOME is None:
+        print("Please set the EXPERIMENTS_HOME environment variable")
+        exit(1)
+    for root, dirs, files in os.walk(EXP_HOME + "input"):
         for file in files:
             if file.startswith("input_") and file.endswith(".txt"):
                 handleInputFile(file)

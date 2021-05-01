@@ -7,14 +7,14 @@ import com.vrp.app.VRP;
 
 public class IP_Main {
 
-	public static final String EXPERIMENTS_HOME = "C:/Users/Robin/Documents/PALTECH/pfad algs/Examples/";
+	public static final String EXPERIMENTS_HOME = System.getenv("EXPERIMENTS_HOME");
 	
 	public static void main(String[] args) {
 
-		ProblemInstance instance = InstanceHandler.createRandom(5, 500);
-		InstanceHandler.saveInstance(instance);
-
-//		ProblemInstance instance = InstanceHandler.loadFromID("269903");
+//		ProblemInstance instance = InstanceHandler.createRandom(2, 70);
+//		InstanceHandler.saveInstance(instance);
+		
+		ProblemInstance instance = InstanceHandler.loadFromID("269903");
 
 		runInstances(instance);
 	}

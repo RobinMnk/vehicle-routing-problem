@@ -17,6 +17,15 @@ public class InstanceHandler {
 		saveInstance(randomInstance);
 	}
 	
+	public static ProblemInstance loadAndAddVehicle(String id) {
+		ProblemInstance base = loadFromID(id);
+		base.setNumVehicles(base.getNumVehicles() + 1);
+		int pid = Integer.parseInt(base.getProblemID());
+		base.setProblemID(String.valueOf(pid + 1));
+		saveInstance(base);
+		return base;
+	}
+	
 	public static ProblemInstance loadFromID(String id) {
 		String inputDir = IP_Main.EXPERIMENTS_HOME + "/input/";
 		String filename = "input_" + id;
@@ -25,7 +34,7 @@ public class InstanceHandler {
 			instance.setProblemID(id);
 			return instance;
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			System.out.printf("No input file with id %s was found in the main experiment directory:\n%s\n", id, IP_Main.EXPERIMENTS_HOME);
 			return null;
 		}
 	}
