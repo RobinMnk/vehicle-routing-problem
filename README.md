@@ -1,3 +1,4 @@
+
 # Vehicle Routing Problem
 
 This repository contains a framework for algorithms to solve the Vehicle Routing Problem (VRP) approximately via Local Search Heuristics. It is a wrapper for the following four algorithms implemented by [emarkou](https://github.com/emarkou) in [this repository](https://github.com/emarkou/Large-Scale-Optimization-Vehicle-Routing-Problem):
@@ -19,4 +20,12 @@ The framework additionally offers
 
 ## Usage
 
-Make sure the `EXPERIMENTS_HOME` environment variable is set and points to a directory that will then contain the simulation results and plots
+Make sure the `EXPERIMENTS_HOME` environment variable is set and points to a directory that will then contain the simulation results and plots.
+
+## Plotter
+
+The plotter will automatically generate the plots for all instances in the `input/` directory if a corresponding solution file exists in the `output/` directory.  Run the plotter with
+
+```console
+ py plotter/VRPplotter.py
+```
