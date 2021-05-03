@@ -11,14 +11,15 @@ public class Solution {
 	
 	private ArrayList<ArrayList<Integer>> routes;
 	private double[] routeCosts;
-	private double totalCosts;
+	private double bestCosts, worstCosts;
 	private ProblemInstance instance;
 	private Algorithm algorithm;
 	
-	public Solution(ArrayList<ArrayList<Integer>> routes, double[] routeCosts, double totalCosts, ProblemInstance instance, Algorithm algorithm) {
+	private Solution(ArrayList<ArrayList<Integer>> routes, double[] routeCosts, double bestCosts, double worstCosts, ProblemInstance instance, Algorithm algorithm) {
 		this.routes = routes;
 		this.routeCosts = routeCosts;
-		this.totalCosts = totalCosts;
+		this.bestCosts = bestCosts;
+		this.worstCosts = worstCosts;
 		this.instance = instance;
 		this.algorithm = algorithm;
 	}
@@ -45,7 +46,7 @@ public class Solution {
 	public String format() {
 		String asString = "";
 		asString += String.format("Algorithm: %s\n", algorithm);
-		asString += String.format("MaxRouteCost: %1$,.2f\n", totalCosts);
+		asString += String.format("MaxRouteCost: %.2f\n", worstCosts);
 		asString += String.format("Routes:\n");
 		for(ArrayList<Integer> rt: routes) {
 			asString += rt.stream().map(i -> i.toString()).collect(Collectors.joining(" ")) + "\n";
@@ -55,25 +56,23 @@ public class Solution {
 
 	@Override
 	public String toString() {
-		String asString = String.format("Total Costs: %f\n", totalCosts);
+		String asString = String.format("Algorithm:\t%s\nTotal Costs:\t%.2f\nQuality Factor:\t%.3f\n", algorithm, worstCosts, getQualityFactor());
 		for(int k = 0; k < routeCosts.length; k++) {
 			String path = routes.get(k)
 					.stream()
 			        .map( n -> n.toString() )
 			        .collect( Collectors.joining( " -> " ) );
-			asString += String.format("Vehicle %d (Costs: %3f):\t%s\n", k+1, routeCosts[k], path);
+			asString += String.format("Vehicle %d (Costs: %.1f):\t%s\n", k+1, routeCosts[k], path);
 		}
 		return asString;
 	}
 	
 	public static Solution from(ProblemInstance instance, Result solution, double[][] distanceMatrix, Algorithm algorithm) {
-
-		int n = instance.getNumLocations();
 		int K = instance.getNumVehicles();
 		
 		ArrayList<ArrayList<Integer>> routes = new ArrayList<ArrayList<Integer>>(); 
 		double[] routeCosts = new double[K];
-		double totalCosts = 0;
+		double worstCosts = 0, bestCosts = Double.POSITIVE_INFINITY;
         for (int j = 0; j < K; j++) {
 			routeCosts[j] = 0;
 			ArrayList<Integer> currentRoute = new ArrayList<Integer>();
@@ -87,10 +86,11 @@ public class Solution {
     			prev = id;
             }
 			routes.add(currentRoute);
-			totalCosts = Math.max(totalCosts, routeCosts[j]);
+			worstCosts = Math.max(worstCosts, routeCosts[j]);
+			bestCosts = Math.min(bestCosts, routeCosts[j]);
 		}
 		
-		return new Solution(routes, routeCosts, totalCosts, instance, algorithm);
+		return new Solution(routes, routeCosts, bestCosts, worstCosts, instance, algorithm);
 			
 	}
 
@@ -98,56 +98,28 @@ public class Solution {
 		return routes;
 	}
 
-
-	public void setRoutes(ArrayList<ArrayList<Integer>> routes) {
-		this.routes = routes;
-	}
-
-
 	public double[] getRouteCosts() {
 		return routeCosts;
 	}
 
-
-	public void setRouteCosts(double[] routeCosts) {
-		this.routeCosts = routeCosts;
-	}
-
-
-	public double getTotalCosts() {
-		return totalCosts;
-	}
-
-
-	public void setTotalCosts(double totalCosts) {
-		this.totalCosts = totalCosts;
-	}
-
-
 	public ProblemInstance getInstance() {
 		return instance;
-	}
-
-
-	public void setInstance(ProblemInstance instance) {
-		this.instance = instance;
 	}
 
 	public Algorithm getAlgorithm() {
 		return algorithm;
 	}
 
-	public void setAlgorithm(Algorithm algorithm) {
-		this.algorithm = algorithm;
+	public double getShortestVehicleCosts() {
+		return bestCosts;
 	}
 
+	public double getCosts() {
+		return worstCosts;
+	}
 	
-	
-//	for (int i = 0; i < n; i++) {
-//	    for (int j = 0; j < n; j++) {
-//	        System.out.print((int) z[i][j][k].get(GRB.DoubleAttr.X) + " ");
-//	    }
-//	    System.out.println();
-//	}
-//	System.out.println("\n");
+	public double getQualityFactor() {
+		return worstCosts / bestCosts;
+	}
+
 }
