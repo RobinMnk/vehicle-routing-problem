@@ -1,5 +1,6 @@
 package com.vrp.app.wrapper;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -38,9 +39,15 @@ public class Utils {
 	
 	public static void writeToFile(String filename, String content) {
 		try {
-			System.out.println("Writing to file: " + filename);
-		    FileWriter fileWriter = new FileWriter(filename);
+			File file = new File(filename);
+			File directory = file.getParentFile();
+			if(!directory.exists()) {
+				System.out.printf("Creating parent directory: %s\n", directory.getAbsolutePath());
+				directory.mkdirs();
+			}
+		    FileWriter fileWriter = new FileWriter(file);
 		    PrintWriter printWriter = new PrintWriter(fileWriter);
+			System.out.println("Writing to file: " + file.getAbsolutePath());
 		    printWriter.print(content);
 		    printWriter.close();
 		} catch(IOException e) {

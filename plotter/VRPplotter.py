@@ -56,7 +56,12 @@ def createPlot(inputfile, solutionfile, problemID):
 
     plt.title("" + str(K) + (' Vehicles' if K > 1 else ' Vehicle') + " - " + str(n) + " Locations - Cost: " + str(cost))
     plotname = "plot_"+problemID+".png"
-    plt.savefig(makePath("plots/" + plotname))
+
+    folderpath = makePath("plots/")
+    if not os.path.exists(folderpath):
+        os.makedirs(folderpath)
+
+    plt.savefig(folderpath + plotname)
     plt.close()
     print("Plot '{}' created!".format(plotname))
 

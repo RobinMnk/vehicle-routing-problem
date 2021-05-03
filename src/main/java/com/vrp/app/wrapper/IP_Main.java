@@ -11,10 +11,10 @@ public class IP_Main {
 	
 	public static void main(String[] args) {
 
-//		ProblemInstance instance = InstanceHandler.createRandom(2, 70);
-//		InstanceHandler.saveInstance(instance);
+		ProblemInstance instance = InstanceHandler.createRandom(2, 70);
+		InstanceHandler.saveInstance(instance);
 		
-		ProblemInstance instance = InstanceHandler.loadFromID("269903");
+//		ProblemInstance instance = InstanceHandler.loadFromID("269903");
 
 		runInstances(instance);
 	}
@@ -29,8 +29,8 @@ public class IP_Main {
 			Solution bestSol = null;
 			for(Algorithm alg: Algorithm.values()) {
 				Solution sol = solver.run(alg);
-				if(sol.getTotalCosts() < bestCost) {
-					bestCost = sol.getTotalCosts();
+				if(sol.getCosts() < bestCost) {
+					bestCost = sol.getCosts();
 					bestSol = sol;
 				}
 				solutions.add(sol);
@@ -43,8 +43,6 @@ public class IP_Main {
 			}
 
 			System.out.println(" ------------------- Best Solution ------------------- \n\n");
-			
-			System.out.println("Algorithm:  " + bestSol.getAlgorithm());
 			
 			bestSol.print();
 			InstanceHandler.saveSolution(bestSol);
