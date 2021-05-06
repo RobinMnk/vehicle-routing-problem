@@ -31,8 +31,16 @@ mvn package
 After the installation you can run it on a randomly generated instance with
 
 ```console
-java -cp target/vrp-1.jar com.vrp.app.VRP <number of vehicles> <number of locations>
+java -cp target/vrp-1.jar com.vrp.app.VRP <number vehicles> <number locations> [nosave]
 ```
+
+To bypass the storing of the input and solution files the third, optional parameter can be set to `nosave`. An example call thus looks like this
+
+````console
+java -cp target/vrp-1.jar com.vrp.app.VRP 3 70 nosave
+````
+
+
 
 ## Plotter
 

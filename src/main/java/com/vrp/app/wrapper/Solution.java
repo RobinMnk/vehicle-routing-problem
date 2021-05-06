@@ -58,13 +58,29 @@ public class Solution {
 	public String toString() {
 		String asString = String.format("Algorithm:\t%s\nTotal Costs:\t%.2f\nQuality Factor:\t%.3f\n", algorithm, worstCosts, getQualityFactor());
 		for(int k = 0; k < routeCosts.length; k++) {
-			String path = routes.get(k)
-					.stream()
-			        .map( n -> n.toString() )
-			        .collect( Collectors.joining( " -> " ) );
+			String path = formatPath(routes.get(k));
 			asString += String.format("Vehicle %d (Costs: %.1f):\t%s\n", k+1, routeCosts[k], path);
 		}
 		return asString;
+	}
+	
+	private static String formatPath(ArrayList<Integer> route) {
+		if(route.size() <= 30) {
+			return route
+					.stream()
+			        .map( n -> n.toString() )
+			        .collect( Collectors.joining( " -> " ) );
+		} else {
+			return route.subList(0, 12)
+					.stream()
+			        .map( n -> n.toString() )
+			        .collect( Collectors.joining( " -> " ) )
+			       + " -> [ ... ] -> " +
+			       route.subList(route.size() - 13, route.size())
+					.stream()
+			        .map( n -> n.toString() )
+			        .collect( Collectors.joining( " -> " ) );
+		}
 	}
 	
 	public static Solution from(ProblemInstance instance, Result solution, double[][] distanceMatrix, Algorithm algorithm) {

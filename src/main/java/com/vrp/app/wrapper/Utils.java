@@ -55,6 +55,19 @@ public class Utils {
 		}
 	}
 	
+	public static String formatNanos(long nanoSeconds) {
+		long millis = (nanoSeconds / 1000) % 1000;
+		long seconds = (millis / 1000) % 60;
+		long minute = millis / (1000 * 60);
+		
+		if(minute > 0) {
+			return String.format("%dm %d.%03ds", minute, seconds, millis);
+		} else {
+			return String.format("%d.%03ds", seconds, millis);
+		}
+
+	}
+	
 	public static void assertTrue(boolean condition, String message) {
 		assertTrue(condition, message, false);
 	}
