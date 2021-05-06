@@ -56,14 +56,14 @@ public class Utils {
 	}
 	
 	public static String formatNanos(long nanoSeconds) {
-		long millis = (nanoSeconds / 1000) % 1000;
-		long seconds = (millis / 1000) % 60;
-		long minute = millis / (1000 * 60);
+		long millis = (nanoSeconds / 1000000);
+		long seconds = millis / (1000);
+		long minute = seconds / 60;
 		
 		if(minute > 0) {
-			return String.format("%dm %d.%03ds", minute, seconds, millis);
+			return String.format("%dm %d.%03ds", minute, seconds % 60, millis % 1000);
 		} else {
-			return String.format("%d.%03ds", seconds, millis);
+			return String.format("%d.%03ds", seconds % 60, millis % 1000);
 		}
 
 	}
