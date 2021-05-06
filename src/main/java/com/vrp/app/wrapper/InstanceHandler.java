@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.Random;
 import java.util.Scanner;
 
+import com.vrp.app.VRP;
 import com.vrp.app.components.Node;
 
 

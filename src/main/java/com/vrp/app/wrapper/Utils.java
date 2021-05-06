@@ -54,4 +54,22 @@ public class Utils {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void assertTrue(boolean condition, String message) {
+		assertTrue(condition, message, false);
+	}
+	
+	public static void assertTrue(boolean condition, String message, boolean fatal) {
+		if(!condition) {
+			assertFail(message, fatal);
+		}
+	}
+	
+	public static void assertFail(String message, boolean fatal) {
+		System.out.printf("ERROR: %s\n", message);
+		if(fatal) {
+			System.out.println("Exiting.");
+			System.exit(1);
+		}
+	}
 }

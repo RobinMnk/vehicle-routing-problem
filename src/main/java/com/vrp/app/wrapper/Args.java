@@ -15,17 +15,28 @@ public class Args {
 
 
 	public static Args parse(String[] args) {
-		if (args.length != 3) {
-			System.out.printf("Expected 2 arguments, got %d. Usage:\n\t<numVehicles> <numLocations>", args.length - 1);
+		if (args.length != 2) {
+			System.out.printf("Expected 2 arguments, got %d. Usage:\n\t<number of vehicles> <number of locations>\n", args.length);
+			System.exit(1);
 		}
 
-		int numVehicles = Integer.parseInt(args[1]);
-		int numLocations = Integer.parseInt(args[2]);
-		
-		assert 1 <= numVehicles && numVehicles <= 20;
-		assert 1 <= numLocations && numLocations <= 10000;
+		int numVehicles = safeParseInt(args[0], "numVehicles");
+		int numLocations = safeParseInt(args[1], "numLocations");
+
+		Utils.assertTrue(1 <= numVehicles && numVehicles <= 20, "Parameter numVehicles has to be in range [1, 20]", true);
+		Utils.assertTrue(1 <= numLocations && numLocations <= 10000, "Parameter numLocations has to be in range [1, 10000]", true);
 		
 		return new Args(numVehicles, numLocations, false);
+	}
+	
+	private static int safeParseInt(String in, String name) {
+		int res = -1;
+		try {
+			res = Integer.parseInt(in);
+		} catch(NumberFormatException ex) {
+			Utils.assertFail(String.format("Parameter %s could not be parsed to integer!", name), true);
+		}
+		return res;
 	}
 
 }

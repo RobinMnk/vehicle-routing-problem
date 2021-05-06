@@ -22,10 +22,22 @@ The framework additionally offers
 
 Make sure the `EXPERIMENTS_HOME` environment variable is set and points to a directory that will then contain the simulation results and plots.
 
+To build, make sure you have Maven installed and run the following command in the root directory
+
+````console
+mvn package
+````
+
+After the installation you can run it on a randomly generated instance with
+
+```console
+java -cp target/vrp-1.jar com.vrp.app.VRP <number of vehicles> <number of locations>
+```
+
 ## Plotter
 
 The plotter will automatically generate the plots for all instances in the `input/` directory if a corresponding solution file exists in the `output/` directory.  Run the plotter with
 
 ```console
- py plotter/VRPplotter.py
+ python3 plotter/VRPplotter.py
 ```

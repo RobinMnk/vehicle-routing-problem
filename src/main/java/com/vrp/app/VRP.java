@@ -1,9 +1,11 @@
-package com.vrp.app.wrapper;
+package com.vrp.app;
 
 import java.util.ArrayList;
 
-import com.vrp.app.Algorithm;
-import com.vrp.app.Runner;
+import com.vrp.app.wrapper.Args;
+import com.vrp.app.wrapper.InstanceHandler;
+import com.vrp.app.wrapper.ProblemInstance;
+import com.vrp.app.wrapper.Solution;
 
 public class VRP {
 

@@ -101,7 +101,7 @@ public class Runner {
                 throw new IllegalStateException("Unexpected value: " + algorithm);
         }
 
-        Printer.printResults(numVehicles, finalSolution, solverName);
+//        Printer.printResults(numVehicles, finalSolution, solverName);
         
         return Solution.from(instance, finalSolution, distanceMatrix, algorithm);
     }
