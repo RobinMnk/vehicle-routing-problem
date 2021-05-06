@@ -24,7 +24,7 @@
 package com.vrp.app.solvers;
 
 import com.vrp.app.Solver;
-import com.vrp.app.VRP;
+import com.vrp.app.Runner;
 import com.vrp.app.components.Node;
 import com.vrp.app.components.RelocationMove;
 import com.vrp.app.components.Result;
@@ -156,7 +156,7 @@ public class LocalSearchIntraAndInterRelocation implements Solver {
             }
         }
         setSolution(currentSolution);
-        if (VRP.DEBUG_ROUTES) {
+        if (Runner.DEBUG_ROUTES) {
             System.out.println(debug);
         }
     }

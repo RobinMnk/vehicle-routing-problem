@@ -32,12 +32,11 @@ import com.vrp.app.solvers.TabuSearch;
 import com.vrp.app.utils.Printer;
 import com.vrp.app.wrapper.ProblemInstance;
 import com.vrp.app.wrapper.Solution;
-import com.vrp.app.wrapper.Utils;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class VRP {
+public class Runner {
 	
 	public static boolean DEBUG_ROUTES = false;
 	

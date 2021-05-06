@@ -3,15 +3,16 @@ package com.vrp.app.wrapper;
 import java.util.ArrayList;
 
 import com.vrp.app.Algorithm;
-import com.vrp.app.VRP;
+import com.vrp.app.Runner;
 
-public class IP_Main {
+public class VRP {
 
 	public static final String EXPERIMENTS_HOME = System.getenv("EXPERIMENTS_HOME");
 	
 	public static void main(String[] args) {
+		Args arguments = Args.parse(args);
 
-		ProblemInstance instance = InstanceHandler.createRandom(2, 70);
+		ProblemInstance instance = InstanceHandler.createRandom(arguments.numVehicles, arguments.numLocations);
 		InstanceHandler.saveInstance(instance);
 		
 //		ProblemInstance instance = InstanceHandler.loadFromID("269903");
@@ -20,7 +21,7 @@ public class IP_Main {
 	}
 	
 	private static void runInstances(ProblemInstance... instances) {
-		VRP solver = new VRP();
+		Runner solver = new Runner();
 		for(ProblemInstance instance: instances) {
 			solver.setup(instance);
 			

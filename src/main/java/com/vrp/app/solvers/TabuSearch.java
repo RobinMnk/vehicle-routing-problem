@@ -24,7 +24,7 @@
 package com.vrp.app.solvers;
 
 import com.vrp.app.Solver;
-import com.vrp.app.VRP;
+import com.vrp.app.Runner;
 import com.vrp.app.components.Arc;
 import com.vrp.app.components.Node;
 import com.vrp.app.components.RelocationMove;
@@ -110,7 +110,7 @@ public class TabuSearch implements Solver {
                 }
             }
         }
-        if (VRP.DEBUG_ROUTES) {
+        if (Runner.DEBUG_ROUTES) {
             debug.append("Best Solution Iteration: " + bestSolutionIterator + "\n");
             System.out.println(debug);
         }
