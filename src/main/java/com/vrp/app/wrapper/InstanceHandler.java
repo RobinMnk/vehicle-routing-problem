@@ -13,8 +13,9 @@ public class InstanceHandler {
 	public static final String EXTENSION = ".txt";
 	
 	public static void main(String[] args) {
-		ProblemInstance randomInstance = createRandom(4, 100);
-		saveInstance(randomInstance);
+		Args arguments = Args.parse(args);
+		ProblemInstance instance = InstanceHandler.createRandom(arguments.numVehicles, arguments.numLocations);
+		saveInstance(instance);
 	}
 	
 	public static ProblemInstance loadAndAddVehicle(String id) {
@@ -27,27 +28,27 @@ public class InstanceHandler {
 	}
 	
 	public static ProblemInstance loadFromID(String id) {
-		String inputDir = IP_Main.EXPERIMENTS_HOME + "/input/";
+		String inputDir = VRP.EXPERIMENTS_HOME + "/input/";
 		String filename = "input_" + id;
 		try {
 			ProblemInstance instance = parseFromInputStream(new Scanner(new File(inputDir + filename + EXTENSION)));
 			instance.setProblemID(id);
 			return instance;
 		} catch (FileNotFoundException e) {
-			System.out.printf("No input file with id %s was found in the main experiment directory:\n%s\n", id, IP_Main.EXPERIMENTS_HOME);
+			System.out.printf("No input file with id %s was found in the main experiment directory:\n%s\n", id, VRP.EXPERIMENTS_HOME);
 			return null;
 		}
 	}
 	
 	public static void saveInstance(ProblemInstance instance) {
-		String inputDir = IP_Main.EXPERIMENTS_HOME + "/input/";
+		String inputDir = VRP.EXPERIMENTS_HOME + "/input/";
 		String filename = "input_" + instance.getProblemID();
 		Utils.writeToFile(inputDir + filename + EXTENSION, instance.toString());
 	}
 	
 	public static void saveSolution(Solution solution) {
 		ProblemInstance instance = solution.getInstance();
-		String outputDir = IP_Main.EXPERIMENTS_HOME + "/output/";
+		String outputDir = VRP.EXPERIMENTS_HOME + "/output/";
 		String filename = "solution_" + instance.getProblemID();
 		Utils.writeToFile(outputDir + filename + EXTENSION, solution.format());
 	}
